@@ -4,7 +4,7 @@ Enterprise-grade proof-of-concept demonstrating automated progressive delivery w
 
 ## Architecture Overview
 
-[View Architecture Diagram](./docs/architecture.md)
+[View Interactive Architecture Diagrams](./docs/architecture-mermaid.md)
 
 The system implements a complete progressive delivery pipeline with:
 
