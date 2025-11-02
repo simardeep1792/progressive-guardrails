@@ -1,0 +1,45 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: webapp-vs
+  namespace: dev
+spec:
+  gateways:
+  - istio-system/webapp-gateway
+  hosts:
+  - webapp.local
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: webapp-stable
+        port:
+          number: 8080
+      weight: 100
+    - destination:
+        host: webapp-canary
+        port:
+          number: 8080
+      weight: 0
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: webapp-dr
+  namespace: dev
+spec:
+  host: webapp-stable
+  subsets:
+  - name: stable
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: webapp-canary-dr
+  namespace: dev
+spec:
+  host: webapp-canary
+  subsets:
+  - name: canary

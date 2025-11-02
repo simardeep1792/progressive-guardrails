@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: webapp
+  namespace: dev
+  labels:
+    app: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+        version: v1
+    spec:
+      containers:
+      - name: webapp
+        image: localhost:5001/webapp:v1.0
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: INJECT_FAILURE
+          value: "false"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 20
+  strategy:
+    canary:
+      canaryService: webapp-canary
+      stableService: webapp-stable
+      trafficRouting:
+        istio:
+          virtualService:
+            name: webapp-vs
+            routes:
+            - primary
+      analysis:
+        templates:
+        - templateName: success-rate
+        - templateName: latency-p95
+        startingStep: 1
+        args:
+        - name: service-name
+          value: webapp
+      steps:
+      - setWeight: 10
+      - pause: {duration: 60}
+      - setWeight: 30
+      - pause: {duration: 60}
+      - setWeight: 60
+      - pause: {duration: 60}
+      - setWeight: 100
+      - pause: {duration: 60}
+  progressDeadlineAbort: false
+  analysisRunMetadata:
+    labels:
+      app: webapp

@@ -1,0 +1,36 @@
+prometheus:
+  prometheusSpec:
+    retention: 24h
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+      limits:
+        memory: 2Gi
+
+alertmanager:
+  enabled: false
+
+grafana:
+  adminPassword: admin
+  service:
+    type: ClusterIP
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
