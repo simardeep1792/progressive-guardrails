@@ -39,3 +39,7 @@ temp/
 # Build artifacts
 dist/
 build/
+
+# Istio download
+istio-*/
+TESTING-GUIDE.md

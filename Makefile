@@ -12,9 +12,9 @@ kind-down:
 .PHONY: istio-install
 istio-install:
 	@echo "Installing Istio..."
-	@kubectl apply -f deploy/base/istio/istio-operator.yaml
-	@kubectl wait --for=condition=Ready pods -l name=istio-operator -n istio-operator --timeout=300s
-	@sleep 10
+	@curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.20.1 sh -
+	@./istio-1.20.1/bin/istioctl install --set values.defaultRevision=default -y
+	@kubectl label namespace default istio-injection=enabled --overwrite
 	@kubectl wait --for=condition=Ready pods -l app=istiod -n istio-system --timeout=300s
 	@kubectl wait --for=condition=Ready pods -l app=istio-ingressgateway -n istio-system --timeout=300s
 	@kubectl apply -f deploy/base/istio/gateway.yaml
@@ -34,10 +34,15 @@ monitoring-install:
 
 .PHONY: argo-install
 argo-install:
-	@echo "Installing Argo..."
-	@kubectl apply -f deploy/base/argo/argocd-install.yaml
-	@kubectl apply -f deploy/base/argo/argo-rollouts-install.yaml
+	@echo "Installing Argo CD..."
+	@kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	@echo "Installing Argo Rollouts..."
+	@kubectl create namespace argo-rollouts --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+	@echo "Waiting for Argo CD to be ready..."
 	@kubectl wait --for=condition=Ready pods -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s
+	@echo "Waiting for Argo Rollouts to be ready..."
 	@kubectl wait --for=condition=Ready pods -l app.kubernetes.io/name=argo-rollouts -n argo-rollouts --timeout=300s
 	@kubectl apply -f deploy/base/argo/argo-rollouts-dash.yaml
 

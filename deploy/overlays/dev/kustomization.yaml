@@ -4,12 +4,11 @@ kind: Kustomization
 namespace: dev
 
 resources:
-  - ../../base/namespace.yaml
-  - ../../app/services.yaml
-  - ../../app/istio.yaml
-  - ../../app/rollout.yaml
-  - ../../app/analysis/success-rate.yaml
-  - ../../app/analysis/latency-p95.yaml
+  - ../../base
+  - ../../app
 
 patches:
-  - path: patches.yaml
+  - target:
+      kind: Rollout
+      name: webapp
+    path: patches.yaml
