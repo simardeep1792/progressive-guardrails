@@ -1,0 +1,218 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="containerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a40"/>
+      <stop offset="100%" style="stop-color:#1f1f35"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="24" font-weight="bold">
+    Progressive Delivery Architecture
+  </text>
+  
+  <!-- Developer Section -->
+  <g>
+    <rect x="50" y="80" width="200" height="120" rx="10" fill="url(#containerGrad)" stroke="#4fc3f7" stroke-width="2" filter="url(#shadow)"/>
+    <text x="150" y="105" text-anchor="middle" fill="#4fc3f7" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Developer</text>
+    <text x="70" y="130" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Code Changes</text>
+    <text x="70" y="150" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Git Push</text>
+    <text x="70" y="170" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• CI Pipeline</text>
+  </g>
+  
+  <!-- Git Repository -->
+  <g>
+    <rect x="320" y="80" width="180" height="120" rx="10" fill="url(#containerGrad)" stroke="#ff9800" stroke-width="2" filter="url(#shadow)"/>
+    <text x="410" y="105" text-anchor="middle" fill="#ff9800" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Git Repository</text>
+    <text x="340" y="130" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Application Code</text>
+    <text x="340" y="150" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Kubernetes Manifests</text>
+    <text x="340" y="170" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Rollout Strategies</text>
+  </g>
+  
+  <!-- CI/CD Pipeline -->
+  <g>
+    <rect x="570" y="80" width="180" height="120" rx="10" fill="url(#containerGrad)" stroke="#4caf50" stroke-width="2" filter="url(#shadow)"/>
+    <text x="660" y="105" text-anchor="middle" fill="#4caf50" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CI/CD Pipeline</text>
+    <text x="590" y="130" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Build & Test</text>
+    <text x="590" y="150" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Container Image</text>
+    <text x="590" y="170" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Registry Push</text>
+  </g>
+  
+  <!-- Container Registry -->
+  <g>
+    <rect x="820" y="80" width="180" height="120" rx="10" fill="url(#containerGrad)" stroke="#9c27b0" stroke-width="2" filter="url(#shadow)"/>
+    <text x="910" y="105" text-anchor="middle" fill="#9c27b0" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Container Registry</text>
+    <text x="840" y="130" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• localhost:5001</text>
+    <text x="840" y="150" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• Image Versions</text>
+    <text x="840" y="170" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">• v1.0, v1.1, v1.2</text>
+  </g>
+  
+  <!-- Kubernetes Cluster Box -->
+  <rect x="80" y="250" width="1040" height="500" rx="15" fill="none" stroke="#4fc3f7" stroke-width="3" stroke-dasharray="10,5"/>
+  <text x="600" y="275" text-anchor="middle" fill="#4fc3f7" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Kubernetes Cluster (Kind)</text>
+  
+  <!-- GitOps Section -->
+  <g>
+    <rect x="120" y="300" width="200" height="150" rx="10" fill="url(#containerGrad)" stroke="#ff5722" stroke-width="2" filter="url(#shadow)"/>
+    <text x="220" y="325" text-anchor="middle" fill="#ff5722" font-family="Arial, sans-serif" font-size="14" font-weight="bold">GitOps</text>
+    <text x="220" y="345" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">(Argo CD)</text>
+    <text x="140" y="370" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Sync Applications</text>
+    <text x="140" y="385" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Deploy Manifests</text>
+    <text x="140" y="400" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Health Monitoring</text>
+    <text x="140" y="415" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Port: 8080</text>
+  </g>
+  
+  <!-- Progressive Delivery Section -->
+  <g>
+    <rect x="360" y="300" width="200" height="150" rx="10" fill="url(#containerGrad)" stroke="#2196f3" stroke-width="2" filter="url(#shadow)"/>
+    <text x="460" y="325" text-anchor="middle" fill="#2196f3" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Progressive Delivery</text>
+    <text x="460" y="345" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">(Argo Rollouts)</text>
+    <text x="380" y="370" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Canary Strategy</text>
+    <text x="380" y="385" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• 10% → 30% → 60% → 100%</text>
+    <text x="380" y="400" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Auto-Rollback</text>
+    <text x="380" y="415" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Port: 3100</text>
+  </g>
+  
+  <!-- Service Mesh Section -->
+  <g>
+    <rect x="600" y="300" width="200" height="150" rx="10" fill="url(#containerGrad)" stroke="#607d8b" stroke-width="2" filter="url(#shadow)"/>
+    <text x="700" y="325" text-anchor="middle" fill="#607d8b" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Service Mesh</text>
+    <text x="700" y="345" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">(Istio)</text>
+    <text x="620" y="370" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Traffic Management</text>
+    <text x="620" y="385" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Circuit Breakers</text>
+    <text x="620" y="400" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Security Policies</text>
+    <text x="620" y="415" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Observability</text>
+  </g>
+  
+  <!-- Monitoring Section -->
+  <g>
+    <rect x="840" y="300" width="200" height="150" rx="10" fill="url(#containerGrad)" stroke="#ff9800" stroke-width="2" filter="url(#shadow)"/>
+    <text x="940" y="325" text-anchor="middle" fill="#ff9800" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Monitoring</text>
+    <text x="940" y="345" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">(Prometheus + Grafana)</text>
+    <text x="860" y="370" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Metrics Collection</text>
+    <text x="860" y="385" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• SLO Analysis</text>
+    <text x="860" y="400" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Dashboards</text>
+    <text x="860" y="415" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Grafana: 3000</text>
+  </g>
+  
+  <!-- Application Workloads -->
+  <g>
+    <rect x="200" y="500" width="280" height="120" rx="10" fill="url(#containerGrad)" stroke="#4caf50" stroke-width="2" filter="url(#shadow)"/>
+    <text x="340" y="525" text-anchor="middle" fill="#4caf50" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Application Workloads</text>
+    
+    <!-- Stable Version -->
+    <rect x="220" y="540" width="100" height="60" rx="5" fill="#1b5e20" stroke="#4caf50" stroke-width="1"/>
+    <text x="270" y="560" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Stable</text>
+    <text x="270" y="575" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="10">webapp:v1.0</text>
+    <text x="270" y="590" text-anchor="middle" fill="#4caf50" font-family="Arial, sans-serif" font-size="10">90% Traffic</text>
+    
+    <!-- Canary Version -->
+    <rect x="340" y="540" width="100" height="60" rx="5" fill="#1565c0" stroke="#2196f3" stroke-width="1"/>
+    <text x="390" y="560" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Canary</text>
+    <text x="390" y="575" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="10">webapp:v1.1</text>
+    <text x="390" y="590" text-anchor="middle" fill="#2196f3" font-family="Arial, sans-serif" font-size="10">10% Traffic</text>
+  </g>
+  
+  <!-- Analysis Engine -->
+  <g>
+    <rect x="520" y="500" width="160" height="120" rx="10" fill="url(#containerGrad)" stroke="#e91e63" stroke-width="2" filter="url(#shadow)"/>
+    <text x="600" y="525" text-anchor="middle" fill="#e91e63" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Analysis Engine</text>
+    <text x="540" y="550" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Success Rate > 99%</text>
+    <text x="540" y="565" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• P95 Latency < 300ms</text>
+    <text x="540" y="580" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Error Rate < 1%</text>
+    <text x="540" y="595" fill="#ff5722" font-family="Arial, sans-serif" font-size="11">→ Auto-Rollback</text>
+  </g>
+  
+  <!-- Kiali Section -->
+  <g>
+    <rect x="720" y="500" width="160" height="120" rx="10" fill="url(#containerGrad)" stroke="#00bcd4" stroke-width="2" filter="url(#shadow)"/>
+    <text x="800" y="525" text-anchor="middle" fill="#00bcd4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Service Graph</text>
+    <text x="800" y="545" text-anchor="middle" fill="#e8eaed" font-family="Arial, sans-serif" font-size="12">(Kiali)</text>
+    <text x="740" y="565" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Topology View</text>
+    <text x="740" y="580" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Traffic Flow</text>
+    <text x="740" y="595" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Port: 20001</text>
+  </g>
+  
+  <!-- External Access -->
+  <g>
+    <rect x="920" y="500" width="160" height="120" rx="10" fill="url(#containerGrad)" stroke="#795548" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1000" y="525" text-anchor="middle" fill="#795548" font-family="Arial, sans-serif" font-size="14" font-weight="bold">External Access</text>
+    <text x="940" y="550" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Istio Gateway</text>
+    <text x="940" y="565" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• webapp.local</text>
+    <text x="940" y="580" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Port: 8081</text>
+    <text x="940" y="595" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">• Load Balancing</text>
+  </g>
+  
+  <!-- Arrows -->
+  
+  <!-- Developer to Git -->
+  <path d="M250 140 L320 140" stroke="#4fc3f7" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Git to CI/CD -->
+  <path d="M500 140 L570 140" stroke="#4fc3f7" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- CI/CD to Registry -->
+  <path d="M750 140 L820 140" stroke="#4fc3f7" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Git to GitOps -->
+  <path d="M410 200 L220 300" stroke="#ff5722" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Registry to Progressive Delivery -->
+  <path d="M910 200 L460 300" stroke="#2196f3" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Progressive Delivery to Applications -->
+  <path d="M460 450 L340 500" stroke="#4caf50" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Monitoring to Analysis -->
+  <path d="M840 400 L680 500" stroke="#e91e63" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Analysis to Progressive Delivery -->
+  <path d="M600 500 L460 450" stroke="#e91e63" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4fc3f7"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <g>
+    <rect x="50" y="670" width="300" height="100" rx="8" fill="rgba(0,0,0,0.7)" stroke="#4fc3f7" stroke-width="1"/>
+    <text x="200" y="690" text-anchor="middle" fill="#4fc3f7" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Progressive Delivery Flow</text>
+    <text x="70" y="710" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">1. Developer commits code changes</text>
+    <text x="70" y="725" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">2. CI/CD builds and pushes container image</text>
+    <text x="70" y="740" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">3. Argo CD syncs application manifests</text>
+    <text x="70" y="755" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">4. Argo Rollouts executes canary strategy</text>
+  </g>
+  
+  <!-- SLO Box -->
+  <g>
+    <rect x="400" y="670" width="350" height="100" rx="8" fill="rgba(0,0,0,0.7)" stroke="#ff9800" stroke-width="1"/>
+    <text x="575" y="690" text-anchor="middle" fill="#ff9800" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SLO-Based Automated Decisions</text>
+    <text x="420" y="710" fill="#4caf50" font-family="Arial, sans-serif" font-size="11">✓ Success Rate ≥ 99% → Continue Rollout</text>
+    <text x="420" y="725" fill="#4caf50" font-family="Arial, sans-serif" font-size="11">✓ P95 Latency ≤ 300ms → Promote Traffic</text>
+    <text x="420" y="740" fill="#f44336" font-family="Arial, sans-serif" font-size="11">✗ SLO Breach Detected → Auto-Rollback</text>
+    <text x="420" y="755" fill="#ff9800" font-family="Arial, sans-serif" font-size="11">Real-time Analysis Every 60 seconds</text>
+  </g>
+  
+  <!-- Automation Box -->
+  <g>
+    <rect x="800" y="670" width="350" height="100" rx="8" fill="rgba(0,0,0,0.7)" stroke="#2196f3" stroke-width="1"/>
+    <text x="975" y="690" text-anchor="middle" fill="#2196f3" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Automation Commands</text>
+    <text x="820" y="710" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">./run.sh setup - Complete infrastructure</text>
+    <text x="820" y="725" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">./run.sh dashboards - Access all UIs</text>
+    <text x="820" y="740" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">./run.sh canary-success - Demo success</text>
+    <text x="820" y="755" fill="#e8eaed" font-family="Arial, sans-serif" font-size="11">./run.sh canary-failure - Demo rollback</text>
+  </g>
+</svg>

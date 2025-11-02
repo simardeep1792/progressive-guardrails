@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressive Delivery - Status Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419, #1a2332);
+            color: #e8eaed;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #9aa0a6;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(79, 195, 247, 0.3);
+        }
+        
+        .card h2 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-healthy { background: #4caf50; }
+        .status-warning { background: #ff9800; }
+        .status-error { background: #f44336; }
+        
+        .dashboard-link {
+            display: block;
+            color: #4fc3f7;
+            text-decoration: none;
+            padding: 10px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 6px;
+            margin: 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-link:hover {
+            background: rgba(79, 195, 247, 0.1);
+            border-color: #4fc3f7;
+        }
+        
+        .commands {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .commands h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+        
+        .command {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            margin: 8px 0;
+            border-left: 3px solid #4fc3f7;
+        }
+        
+        .progress-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .phase {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .phase:last-child {
+            border-bottom: none;
+        }
+        
+        .phase-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4fc3f7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .phase-content {
+            flex: 1;
+        }
+        
+        .phase-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .phase-description {
+            color: #9aa0a6;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Progressive Delivery</h1>
+            <p class="subtitle">Automated Progressive Delivery with Argo Rollouts & Istio</p>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2><span class="status-indicator status-healthy"></span>Quick Access</h2>
+                <a href="http://localhost:8080" class="dashboard-link" target="_blank">
+                    Argo CD (admin/[password in terminal])
+                </a>
+                <a href="http://localhost:3100/rollouts/rollout/dev/webapp" class="dashboard-link" target="_blank">
+                    Argo Rollouts Dashboard
+                </a>
+                <a href="http://localhost:3000" class="dashboard-link" target="_blank">
+                    Grafana (admin/admin)
+                </a>
+                <a href="http://localhost:20001" class="dashboard-link" target="_blank">
+                    Kiali Service Mesh
+                </a>
+            </div>
+            
+            <div class="card">
+                <h2><span class="status-indicator status-healthy"></span>Current Demo</h2>
+                <p>Follow the automated testing guide for best results:</p>
+                <div style="margin: 15px 0;">
+                    <strong>Next Command:</strong>
+                    <div class="command">./run.sh dashboards</div>
+                </div>
+                <p style="color: #9aa0a6; font-size: 0.9rem;">
+                    This will open all dashboards in separate browser tabs and set up tmux session management.
+                </p>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <h3 style="color: #4fc3f7; margin-bottom: 20px;">Demo Progress</h3>
+            
+            <div class="phase">
+                <div class="phase-number">1</div>
+                <div class="phase-content">
+                    <div class="phase-title">Infrastructure Setup</div>
+                    <div class="phase-description">Kind cluster, Istio, Monitoring, Argo CD & Rollouts</div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-number">2</div>
+                <div class="phase-content">
+                    <div class="phase-title">Dashboard Access</div>
+                    <div class="phase-description">Automated tmux session and browser tab opening</div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-number">3</div>
+                <div class="phase-content">
+                    <div class="phase-title">Successful Canary</div>
+                    <div class="phase-description">10% → 30% → 60% → 100% traffic progression</div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-number">4</div>
+                <div class="phase-content">
+                    <div class="phase-title">Auto-Rollback Demo</div>
+                    <div class="phase-description">Failure injection and automatic rollback</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="commands">
+            <h3>Available Commands</h3>
+            <div class="command">./run.sh setup</div>
+            <div class="command">./run.sh dashboards</div>
+            <div class="command">./run.sh canary-success</div>
+            <div class="command">./run.sh canary-failure</div>
+            <div class="command">./run.sh status</div>
+            <div class="command">./run.sh cleanup</div>
+        </div>
+    </div>
+    
+    <script>
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
+        
+        document.querySelectorAll('.dashboard-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                link.style.background = 'rgba(79, 195, 247, 0.2)';
+                setTimeout(() => {
+                    link.style.background = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
