@@ -45,6 +45,8 @@ argo-install:
 	@echo "Waiting for Argo Rollouts to be ready..."
 	@kubectl wait --for=condition=Ready pods -l app.kubernetes.io/name=argo-rollouts -n argo-rollouts --timeout=300s
 	@kubectl apply -f deploy/base/argo/argo-rollouts-dash.yaml
+	@echo "Setting up dashboard permissions..."
+	@kubectl create clusterrolebinding argo-rollouts-dashboard --clusterrole=argo-rollouts --serviceaccount=argo-rollouts:default --dry-run=client -o yaml | kubectl apply -f -
 
 .PHONY: ingress-check
 ingress-check:
@@ -52,7 +54,7 @@ ingress-check:
 
 .PHONY: app-build
 app-build:
-	@cd app && make build
+	@cd app && make build TAG=$(IMAGE_TAG)
 
 .PHONY: app-test
 app-test:
