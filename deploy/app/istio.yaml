@@ -9,7 +9,8 @@ spec:
   hosts:
   - webapp.local
   http:
-  - match:
+  - name: primary
+    match:
     - uri:
         prefix: /
     route:
