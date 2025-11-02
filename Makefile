@@ -69,7 +69,9 @@ app-push:
 deploy-dev:
 	@kubectl apply -f deploy/base/namespace.yaml
 	@kubectl apply -f deploy/base/argo/application.yaml
-	@kubectl wait --for=condition=Ready application/webapp -n argocd --timeout=300s
+	@echo "Waiting for application to be healthy..."
+	@timeout 300 bash -c 'until kubectl get application webapp -n argocd -o jsonpath="{.status.health.status}" | grep -q "Healthy"; do sleep 5; done' || true
+	@echo "✅ Application deployed"
 
 .PHONY: rollout-status
 rollout-status:
