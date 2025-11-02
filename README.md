@@ -8,7 +8,6 @@ Local proof-of-concept demonstrating progressive delivery with automated rollbac
 - kind 0.20+
 - kubectl
 - helm
-- cosign
 - hey or ab
 - kubectl-argo-rollouts plugin
 
@@ -25,7 +24,7 @@ make monitoring-install
 make argo-install
 
 # Build and deploy
-make app-build app-test app-push app-sign
+make app-build app-test app-push
 make deploy-dev
 
 # Access dashboards
@@ -45,7 +44,7 @@ make induce-failure
 # observe auto-rollback in dashboards
 
 # Fix and promote
-make app-build app-push app-sign
+make app-build app-push
 make canary-start
 make canary-promote
 ```
@@ -81,14 +80,6 @@ make nuke
 
 # Check rollout status
 kubectl argo rollouts get rollout webapp -n dev
-```
-
-## Cosign Setup
-
-```bash
-# Generate keypair (one-time)
-cosign generate-key-pair
-export COSIGN_PASSWORD=yourpassword
 ```
 
 ## Port Mappings

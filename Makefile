@@ -1,6 +1,5 @@
 REGISTRY_HOST ?= localhost:5001
 IMAGE_TAG ?= v1.0
-COSIGN_KEY ?= cosign.key
 
 .PHONY: kind-up
 kind-up:
@@ -57,10 +56,6 @@ app-test:
 .PHONY: app-push
 app-push:
 	@cd app && make push TAG=$(IMAGE_TAG)
-
-.PHONY: app-sign
-app-sign:
-	@cosign sign --key $(COSIGN_KEY) $(REGISTRY_HOST)/webapp:$(IMAGE_TAG) -y
 
 .PHONY: deploy-dev
 deploy-dev:
@@ -128,4 +123,3 @@ reset:
 .PHONY: nuke
 nuke: kind-down
 	@docker rm -f kind-registry 2>/dev/null || true
-	@rm -f cosign.key cosign.pub
