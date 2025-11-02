@@ -13,40 +13,69 @@ Local proof-of-concept demonstrating progressive delivery with automated rollbac
 
 ## Quick Start
 
+**1. Initial Setup**
 ```bash
 # Add to /etc/hosts
 echo "127.0.0.1 webapp.local" | sudo tee -a /etc/hosts
 
-# Setup infrastructure
+# Navigate to project directory
+cd progressive-guardrails
+
+# Setup infrastructure (takes 5-10 minutes)
 make kind-up
 make istio-install
 make monitoring-install
 make argo-install
+```
 
-# Build and deploy
+**2. Build and Deploy**
+```bash
+# Build, test, and deploy application
 make app-build app-test app-push
 make deploy-dev
+```
 
-# Access dashboards
-make open-argocd      # admin password shown
-make open-rollouts    # localhost:3100
-make open-grafana     # localhost:3000 admin/admin
-make open-kiali       # localhost:20001
-make open-gateway     # localhost:8081
+**3. Access Dashboards (open 4 terminals)**
+```bash
+# Terminal 1: Argo CD (password displayed)
+make open-argocd      # http://localhost:8080
 
-# Canary deployment
-make canary-start
-make test-canary      # in another terminal
+# Terminal 2: Argo Rollouts
+make open-rollouts    # http://localhost:3100/rollouts/rollout/dev/webapp
+
+# Terminal 3: Grafana
+make open-grafana     # http://localhost:3000 (admin/admin)
+
+# Terminal 4: Gateway
+make open-gateway     # Enables http://webapp.local:8081
+```
+
+**4. Test Canary Deployment**
+```bash
+# In main terminal
+make app-build IMAGE_TAG=v1.1
+make app-push IMAGE_TAG=v1.1
+make canary-start IMAGE_TAG=v1.1
+
+# In 6th terminal: Send traffic
+make test-canary
+
+# Watch progression: 10% → 30% → 60% → 100%
 make canary-watch
+```
 
-# Test rollback
+**5. Test Auto-Rollback**
+```bash
+# Start new canary
+make app-build IMAGE_TAG=v1.2
+make app-push IMAGE_TAG=v1.2
+make canary-start IMAGE_TAG=v1.2
+
+# Send traffic, then inject failures
+make test-canary &
 make induce-failure
-# observe auto-rollback in dashboards
 
-# Fix and promote
-make app-build app-push
-make canary-start
-make canary-promote
+# Observe automatic rollback in dashboards
 ```
 
 ## Architecture
@@ -82,20 +111,38 @@ make nuke
 kubectl argo rollouts get rollout webapp -n dev
 ```
 
-## Port Mappings
+## Port Mappings & URLs
 
-| Service | Local Port | Access |
-|---------|------------|--------|
-| Argo CD | 8080 | make open-argocd |
-| Rollouts | 3100 | make open-rollouts |
-| Grafana | 3000 | make open-grafana |
-| Kiali | 20001 | make open-kiali |
-| Gateway | 8081 | make open-gateway |
-| Prometheus | 9090 | kubectl port-forward |
+| Service | Local Port | URL | Credentials |
+|---------|------------|-----|-------------|
+| Argo CD | 8080 | http://localhost:8080 | admin/[shown in terminal] |
+| Argo Rollouts | 3100 | http://localhost:3100/rollouts/rollout/dev/webapp | none |
+| Grafana | 3000 | http://localhost:3000 | admin/admin |
+| Kiali | 20001 | http://localhost:20001 | none |
+| Gateway | 8081 | http://webapp.local:8081 | none |
+| Application | 8081 | curl -H "Host: webapp.local" http://localhost:8081/ | none |
 
 ## Troubleshooting
 
+**Dashboard Loading Issues:**
+```bash
+# Check port-forwards are running
+ps aux | grep "kubectl port-forward"
+
+# Restart if needed
+kill $(ps aux | grep "kubectl port-forward" | awk '{print $2}') 2>/dev/null
+cd progressive-guardrails && make open-rollouts
+```
+
+**Analysis Errors:**
+```bash
+# Delete failed analysis runs
+kubectl get analysisrun -n dev
+kubectl delete analysisrun <name> -n dev
+```
+
+**General Issues:**
 - Ensure Docker has 8GB+ memory allocated
 - Check pod status: `kubectl get pods -A`
 - View rollout events: `kubectl describe rollout webapp -n dev`
-- Gateway logs: `kubectl logs -n istio-system -l app=istio-ingressgateway`
+- Check /etc/hosts: `grep webapp.local /etc/hosts`
