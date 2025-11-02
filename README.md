@@ -4,7 +4,7 @@ Enterprise-grade proof-of-concept demonstrating automated progressive delivery w
 
 ## Architecture Overview
 
-![Architecture Diagram](./docs/architecture.svg)
+[View Architecture Diagram](./docs/architecture.md)
 
 The system implements a complete progressive delivery pipeline with:
 
