@@ -16,8 +16,10 @@ spec:
       prometheus:
         address: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
         query: |
-          (
-            sum(rate(http_requests_total{app="{{args.service-name}}",status=~"2.."}[1m])) or vector(0)
-          ) / (
-            sum(rate(http_requests_total{app="{{args.service-name}}"}[1m])) or vector(1)
+          scalar(
+            (
+              sum(rate(http_requests_total{app="{{args.service-name}}",status=~"2.."}[1m])) or vector(0)
+            ) / (
+              sum(rate(http_requests_total{app="{{args.service-name}}"}[1m])) or vector(1)
+            )
           )

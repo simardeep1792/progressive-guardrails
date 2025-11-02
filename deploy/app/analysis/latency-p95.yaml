@@ -16,4 +16,6 @@ spec:
       prometheus:
         address: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
         query: |
-          histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{app="{{args.service-name}}"}[1m]))) * 1000 or vector(0)
+          scalar(
+            histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{app="{{args.service-name}}"}[1m]))) * 1000 or vector(0)
+          )

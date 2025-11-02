@@ -31,6 +31,7 @@ monitoring-install:
 	@helm upgrade --install kiali-server kiali/kiali-server \
 		-n monitoring --set auth.strategy=anonymous --set istio_namespace=istio-system --wait
 	@kubectl apply -f deploy/base/prometheus/servicemonitor.yaml
+	@kubectl apply -f deploy/base/grafana/webapp-dashboard.yaml
 
 .PHONY: argo-install
 argo-install:
